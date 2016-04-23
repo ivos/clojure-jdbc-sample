@@ -1,6 +1,9 @@
 (ns clojure-jdbc-sample.core
   (:gen-class)
-  (:require [clojure.java.jdbc :as db]))
+  (:require [clojure.java.jdbc :as db]
+            [clojure-jdbc-sample.migration :as migration]))
+
+(migration/migrate)
 
 (def db-spec
   {:classname "com.mysql.jdbc.Driver"
