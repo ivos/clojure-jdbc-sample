@@ -1,9 +1,10 @@
 (defproject clojure-jdbc-sample "0.1.0-SNAPSHOT"
   :dependencies [
     [org.clojure/clojure "1.7.0"]
-    [org.clojure/java.jdbc "0.6.0-alpha1"]
+    [org.clojure/java.jdbc "0.4.2"]
     [com.h2database/h2 "1.3.176"]
     [org.flywaydb/flyway-core "3.2.1"]
+    [yesql "0.5.2"]
   ]
   :main ^:skip-aot clojure-jdbc-sample.core
   :target-path "target/%s"

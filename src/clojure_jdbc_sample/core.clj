@@ -1,7 +1,8 @@
 (ns clojure-jdbc-sample.core
   (:gen-class)
-  (:require [clojure-jdbc-sample.customer-repo :as repo]
-            [clojure-jdbc-sample.migration :as migration]))
+  (:require [clojure-jdbc-sample.repo :as repo]
+            [clojure-jdbc-sample.migration :as migration]
+            [yesql.core :refer [defqueries]]))
 
 (migration/clean)
 (migration/migrate)
@@ -13,11 +14,18 @@
    :user "sa"
    :password ""})
 
+(defqueries "db/sql/customer.sql"
+  {:connection db-spec})
+
 (defn -main [& args]
-  (let [alpha1 (repo/create-customer db-spec {:name "Alpha"})
-        alpha2 (repo/update-customer db-spec (assoc alpha1 :email "info@alpha.com"))
-        alpha3 (repo/update-customer db-spec (assoc alpha2 :phone "+2-000-888-666"))]
-    (repo/create-customer db-spec {:name "Beta" :email "info@beta.com" :phone "+1-234-555-678"})
-    (repo/delete-customer db-spec alpha3)
+  (let [alpha1 (repo/create! db-spec :customer {:name "Alpha"})
+        alpha2 (repo/update! db-spec :customer (assoc alpha1 :email "info@alpha.com"))
+        alpha3 (repo/update! db-spec :customer (assoc alpha2 :phone "+2-000-888-666"))
+        beta (repo/create! db-spec :customer {:name "Beta" :email "info@beta.com" :phone "+1-234-555-678"})
+        all (list-all-customers)
+        alpha4 (repo/delete! db-spec :customer alpha3)
+        after-delete (list-all-customers)]
+    (println "All:" all)
+    (println "After delete:" after-delete)
   )
 )
