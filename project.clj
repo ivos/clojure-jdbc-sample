@@ -5,6 +5,8 @@
     [com.h2database/h2 "1.3.176"]
     [org.flywaydb/flyway-core "3.2.1"]
     [yesql "0.5.2"]
+    [org.clojure/tools.logging "0.3.1"]
+    [ch.qos.logback/logback-classic "1.1.7"]
   ]
   :main ^:skip-aot clojure-jdbc-sample.core
   :target-path "target/%s"

@@ -1,5 +1,6 @@
 (ns clojure-jdbc-sample.repo
-  (:require [clojure.java.jdbc :as db]))
+  (:require [clojure.java.jdbc :as db]
+            [clojure.tools.logging :as log]))
 
 (def generated-key (keyword "scope_identity()"))
 
@@ -16,17 +17,20 @@
     (throw (RuntimeException. (str "Conflict on " table " " values)))))
 
 (defn create! [db-spec table values]
+  (log/debug "inserting" table values)
   (let [defaulted-values (assoc values :version 1)
         [result] (db/insert! db-spec table defaulted-values)]
     (assoc defaulted-values :id (generated-key result))))
 
 (defn update! [db-spec table values]
+  (log/debug "updating" table values)
   (let [values-to-set (set-values values)
         [result] (db/update! db-spec table values-to-set (where-values values))]
     (verify-result result table values)
     (merge values values-to-set)))
 
 (defn delete! [db-spec table values]
+  (log/debug "deleting" table values)
   (let [[result] (db/delete! db-spec table (where-values values))]
     (verify-result result table values)
     values))
