@@ -10,7 +10,7 @@
 (def db-spec
   {:classname "com.mysql.jdbc.Driver"
    :subprotocol "h2:file"
-   :subname "./target/db/sample;AUTO_SERVER=TRUE;DB_CLOSE_ON_EXIT=FALSE;MVCC=TRUE"
+   :subname "./target/db/sample;AUTO_SERVER=TRUE;DB_CLOSE_ON_EXIT=FALSE;MVCC=TRUE;TRACE_LEVEL_FILE=4"
    :user "sa"
    :password ""})
 
