@@ -23,9 +23,11 @@
         alpha3 (repo/update! db-spec :customer (assoc alpha2 :phone "+2-000-888-666"))
         beta (repo/create! db-spec :customer {:name "Beta" :email "info@beta.com" :phone "+1-234-555-678"})
         all (list-all-customers)
-        alpha4 (repo/delete! db-spec :customer alpha3)
+        alpha4 (get-customer alpha1)
+        alpha5 (repo/delete! db-spec :customer alpha3)
         after-delete (list-all-customers)]
     (println "All:" all)
+    (println "Alpha4:" alpha4)
     (println "After delete:" after-delete)
   )
 )
