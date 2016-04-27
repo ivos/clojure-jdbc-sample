@@ -1,16 +1,14 @@
 (ns clojure-jdbc-sample.migration
   (import [org.flywaydb.core Flyway])
-  (require [clojure-jdbc-sample.db-setup :refer :all]
-           [clojure.java.jdbc :refer [db-do-commands]]))
+  (require [clojure-jdbc-sample.db-setup :refer :all]))
+
+(def flyway
+  (doto (Flyway.)
+    (.setDataSource datasource)
+  	(.setSqlMigrationPrefix "")))
 
 (defn migrate []
-  (let [flyway (doto (Flyway.)
-		 (.setDataSource datasource)
-		 (.setSqlMigrationPrefix ""))]
-       (.migrate flyway)))
+  (.migrate flyway))
 
 (defn clean []
-  (let [flyway (doto (Flyway.)
-		 (.setDataSource datasource)
-		 (.setSqlMigrationPrefix ""))]
-       (.clean flyway)))
+  (.clean flyway))
