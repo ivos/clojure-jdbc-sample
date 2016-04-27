@@ -1,6 +1,6 @@
 (ns clojure-jdbc-sample.core
   (:gen-class)
-  (:require [clojure-jdbc-sample.db-setup :refer :all]
+  (:require [clojure-jdbc-sample.db-setup :refer [db-spec close-datasource]]
             [clojure-jdbc-sample.repo :as repo]
             [clojure-jdbc-sample.migration :as migration]
             [hugsql.core :refer [def-db-fns]]
