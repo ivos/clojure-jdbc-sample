@@ -2,10 +2,25 @@
   (:gen-class)
   (:require [clojure-jdbc-sample.repo :as repo]
             [clojure-jdbc-sample.migration :as migration]
-            [hugsql.core :refer [def-db-fns]]))
+            [hugsql.core :refer [def-db-fns]]
+            [hikari-cp.core :as ds]
+  ))
 
 (migration/clean)
 (migration/migrate)
+
+(def datasource-config
+  {:adapter "h2"
+;   :jdbc-url "jdbc:h2:file:./target/db/sample;AUTO_SERVER=TRUE;DB_CLOSE_ON_EXIT=FALSE;MVCC=TRUE;TRACE_LEVEL_FILE=4"
+   :url "jdbc:h2:file:./target/db/sample;AUTO_SERVER=TRUE;DB_CLOSE_ON_EXIT=FALSE;MVCC=TRUE;TRACE_LEVEL_FILE=4"
+   :username "sa"
+   :password ""
+   :maximum-pool-size 2
+   :minimum-idle 2
+  })
+
+(def datasource
+  (ds/make-datasource datasource-config))
 
 (def db-spec
   {:classname "com.mysql.jdbc.Driver"

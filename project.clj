@@ -5,6 +5,7 @@
     [com.h2database/h2 "1.3.176"]
     [org.flywaydb/flyway-core "3.2.1"]
     [com.layerware/hugsql "0.4.7"]
+    [hikari-cp "1.6.1"]
     [org.clojure/tools.logging "0.3.1"]
     [ch.qos.logback/logback-classic "1.1.7"]
   ]
