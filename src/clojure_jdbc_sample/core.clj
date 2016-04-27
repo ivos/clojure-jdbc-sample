@@ -10,7 +10,7 @@
 (migration/clean)
 (migration/migrate)
 
-(def-db-fns "db/sql/customer.sql"
+(def-db-fns "clojure_jdbc_sample/customer.sql"
   {:connection db-spec})
 
 (defn setup-data []
