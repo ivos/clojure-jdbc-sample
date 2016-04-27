@@ -2,7 +2,7 @@
   (:gen-class)
   (:require [clojure-jdbc-sample.repo :as repo]
             [clojure-jdbc-sample.migration :as migration]
-            [yesql.core :refer [defqueries]]))
+            [hugsql.core :refer [def-db-fns]]))
 
 (migration/clean)
 (migration/migrate)
@@ -14,7 +14,7 @@
    :user "sa"
    :password ""})
 
-(defqueries "db/sql/customer.sql"
+(def-db-fns "db/sql/customer.sql"
   {:connection db-spec})
 
 (defn -main [& args]
@@ -22,10 +22,10 @@
         alpha2 (repo/update! db-spec :customer (assoc alpha1 :email "info@alpha.com"))
         alpha3 (repo/update! db-spec :customer (assoc alpha2 :phone "+2-000-888-666"))
         beta (repo/create! db-spec :customer {:name "Beta" :email "info@beta.com" :phone "+1-234-555-678"})
-        all (list-all-customers)
-        alpha4 (get-customer alpha1)
+        all (list-all-customers db-spec)
+        alpha4 (get-customer db-spec alpha1)
         alpha5 (repo/delete! db-spec :customer alpha3)
-        after-delete (list-all-customers)]
+        after-delete (list-all-customers db-spec)]
     (println "All:" all)
     (println "Alpha4:" alpha4)
     (println "After delete:" after-delete)
