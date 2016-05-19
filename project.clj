@@ -1,6 +1,6 @@
 (defproject clojure-jdbc-sample "0.1.0-SNAPSHOT"
   :dependencies [
-    [org.clojure/clojure "1.7.0"]
+    [org.clojure/clojure "1.8.0"]
     [org.clojure/java.jdbc "0.6.0-alpha2"]
     [com.h2database/h2 "1.3.176"]
     [org.flywaydb/flyway-core "3.2.1"]
